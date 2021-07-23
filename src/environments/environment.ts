@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  cryptoEndpoint: `http://localhost:60001/cryptos`,
-  keyEndpoint: `http://localhost:60001/keys`,
+  cryptoEndpoint: `http://localhost:60001/api/cryptos`,
+  keyEndpoint: `http://localhost:60001/api/keys`,
 };
 
 /*

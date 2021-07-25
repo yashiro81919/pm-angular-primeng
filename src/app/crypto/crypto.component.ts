@@ -25,9 +25,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
 
   constructor(private cryptoService : CryptoService, private ngb : NgbModal) { }
 
-  ngOnInit(): void {
-    this.listCryptos();
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());

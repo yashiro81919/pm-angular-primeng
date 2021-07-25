@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Input Key</h4>
+</div>
+<div class="modal-body">
+    <div class="form-group" [formGroup]="keyForm">
+    <label for="key1">Key1</label>
+    <input id="key1" class="form-control" formControlName="key1">      
+    <label for="key2">Key2</label>
+    <input id="key2" class="form-control" formControlName="key2">      
+    </div>      
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="activeModal.close('Save click')">Yes</button>
+</div>

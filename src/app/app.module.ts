@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { CryptoComponent } from './crypto/crypto.component';
 import { KeyComponent } from './key/key.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     SidebarComponent,
     CryptoComponent,
-    KeyComponent
+    KeyComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

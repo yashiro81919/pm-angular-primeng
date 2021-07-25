@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 })
 export class CryptoService {
 
-  private url = `${environment.cryptoEndpoint}`;
+  private url = environment.cryptoEndpoint;
 
   constructor(private http: HttpClient) { }
 

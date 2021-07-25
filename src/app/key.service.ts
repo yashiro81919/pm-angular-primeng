@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, KeyValueDiffers } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { AES, enc } from 'crypto-js';
 
@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 })
 export class KeyService {
 
-  private url = `${environment.keyEndpoint}`;
+  private url = environment.keyEndpoint;
   private secretKey = 'pm-sty';
 
   constructor(private http: HttpClient) { }

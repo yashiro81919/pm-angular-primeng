@@ -4,7 +4,6 @@ import { CryptoComponent } from './crypto/crypto.component';
 import { KeyComponent } from './key/key.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/crypto', pathMatch: 'full'},
   { path: 'crypto', component: CryptoComponent},
   { path: 'key', component: KeyComponent},
 ];

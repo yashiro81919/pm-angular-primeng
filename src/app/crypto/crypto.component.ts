@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { CryptoService } from '../crypto.service';
+import { CryptoService } from '../service/crypto.service';
 
 @Component({
   selector: 'app-crypto',
@@ -22,6 +22,7 @@ export class CryptoComponent implements OnInit, OnDestroy {
   subscriptions: Array<Subscription> = [];
   showSpinner = false;
   isEdit = false;
+  errorMessage = null;
 
   constructor(private cryptoService : CryptoService, private ngb : NgbModal) { }
 
@@ -46,6 +47,9 @@ export class CryptoComponent implements OnInit, OnDestroy {
         this.total += element.total;  
       });
 
+      this.showSpinner = false;
+    }, error => {
+      this.errorMessage = error.message;
       this.showSpinner = false;
     });
     this.subscriptions.push(sub);    
@@ -93,6 +97,8 @@ export class CryptoComponent implements OnInit, OnDestroy {
       const cryptoObject = {cmc_id: this.cmc_id?.value, name: this.name?.value, quantity: this.quantity?.value, remark: this.remark?.value};
       const sub = this.cryptoService.addCrypto(cryptoObject).subscribe(() => {
         this.listCryptos();
+      }, error => {
+        this.errorMessage = error.message;
       });
       this.subscriptions.push(sub);
       console.log(result);

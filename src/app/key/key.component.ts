@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { KeyService } from '../key.service';
+import { KeyService } from '../service/key.service';
 
 @Component({
   selector: 'app-key',
@@ -21,6 +21,7 @@ export class KeyComponent implements OnInit, OnDestroy {
   subscriptions: Array<Subscription> = [];
   showSpinner = false;
   isEdit = false;
+  errorMessage = null;
 
   constructor(private keyService : KeyService, private ngb : NgbModal) { }
 
@@ -40,6 +41,9 @@ export class KeyComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
     const sub = this.keyService.searchKeys(this.filter.value).subscribe(data => {
       this.keys = data;
+      this.showSpinner = false;
+    }, error => {
+      this.errorMessage = error.message;
       this.showSpinner = false;
     });
     this.subscriptions.push(sub);    
@@ -86,6 +90,8 @@ export class KeyComponent implements OnInit, OnDestroy {
       const keyObject = {name: this.name?.value, key: this.key?.value, value: this.value?.value};
       const sub = this.keyService.addKey(keyObject).subscribe(() => {
         this.searchKeys();
+      }, error => {
+        this.errorMessage = error.message;  
       });
       this.subscriptions.push(sub);
       console.log(result);

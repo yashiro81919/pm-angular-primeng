@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import packageInfo from '../../package.json';
-import { KeyService } from './key.service';
+import { KeyService } from './service/key.service';
 import { LoginComponent } from './login/login.component';
 
 @Component({
@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   constructor(private keyService : KeyService, private ngb: NgbModal) {}
 
   ngOnInit(): void {
+    localStorage.clear();
+
     const loginDialog = this.ngb.open(LoginComponent);
     const loginCom = loginDialog.componentInstance;
     loginDialog.result.then(data => {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { AES, enc } from 'crypto-js';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,7 @@ export class KeyService {
               key.key = this.decrypt(key.key);
               key.value = this.decrypt(key.value);
             })
-          },
-          error => console.log(error)
+          }
         )
       );
   }

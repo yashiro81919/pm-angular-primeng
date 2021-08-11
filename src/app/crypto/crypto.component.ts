@@ -41,10 +41,11 @@ export class CryptoComponent implements OnInit, OnDestroy {
     this.showSpinner = true;
     const sub = this.cryptoService.listCryptos().subscribe(data => {
       this.cryptos = data;
+      this.total = 0;
 
       //calculate total
       data.forEach(element => {
-        this.total += element.total;  
+        this.total += element.total;
       });
 
       this.showSpinner = false;

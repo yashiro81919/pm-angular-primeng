@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import packageInfo from '../../../package.json';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +12,7 @@ export class FooterComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.description = packageInfo.description;
+    this.description = '© 2021 by Tim Shi for a better life';
   }
 
 }

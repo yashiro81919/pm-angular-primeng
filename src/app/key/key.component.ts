@@ -1,41 +1,53 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { KeyService } from '../service/key.service';
+import { KeyService } from './key.service';
 
 @Component({
   selector: 'app-key',
   templateUrl: './key.component.html',
   styleUrls: ['./key.component.scss']
 })
-export class KeyComponent implements OnInit, OnDestroy {
+export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  keys : any[] = [];
+  @ViewChild('filterInput') filterElement!: ElementRef;
+
+  keys: any[] = [];
   filter = new FormControl();
-  keyForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    key: new FormControl('', Validators.required),
-    value: new FormControl('', Validators.required),
-  });
+  keyForm!: FormGroup;
   subscriptions: Array<Subscription> = [];
   showSpinner = false;
   isEdit = false;
-  errorMessage = null;
+  displayModal = false;
 
-  constructor(private keyService : KeyService, private ngb : NgbModal) { }
+  constructor(private keyService: KeyService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-
+    this.keyForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      key: new FormControl('', Validators.required),
+      value: new FormControl('', Validators.required),
+    });
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  ngAfterViewInit() {
+    this.filterElement.nativeElement.focus();
+  }
+
   get name() { return this.keyForm.get('name'); }
   get key() { return this.keyForm.get('key'); }
   get value() { return this.keyForm.get('value'); }
+
+  isInvalid(name: string) {
+    const control = this.keyForm.get(name);
+    return control?.invalid && (control?.dirty || control?.touched) && control?.errors?.required;
+  }
 
   searchKeys() {
     this.showSpinner = true;
@@ -43,60 +55,62 @@ export class KeyComponent implements OnInit, OnDestroy {
       this.keys = data;
       this.showSpinner = false;
     }, error => {
-      this.errorMessage = error.message;
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
       this.showSpinner = false;
     });
-    this.subscriptions.push(sub);    
+    this.subscriptions.push(sub);
   }
 
-  confirmDialog(content: any, name: string) {
-    this.ngb.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(result => {
-      const sub = this.keyService.deleteKey(name).subscribe(() => {
-        this.searchKeys();
-      });
-      this.subscriptions.push(sub);
-      console.log(result);
-    }, reason => {
-      console.log(reason);
+  confirmDialog(event: Event, name: string) {
+    this.confirmationService.confirm({
+      target: event.target === null ? undefined : event.target,
+      message: 'Are you sure to delete?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const sub = this.keyService.deleteKey(name).subscribe(() => {
+          this.searchKeys();
+        });
+        this.subscriptions.push(sub);
+      },
+      reject: () => {
+        
+      }
     });
   }
 
-  editDialog(content: any, key: any) {
-    this.isEdit = true;
-    this.name?.disable();
+  openDialog(key: any) {
+    if (key) {
+      this.isEdit = true;
 
-    this.name?.setValue(key.name); 
-    this.key?.setValue(key.key); 
-    this.value?.setValue(key.value); 
+      this.name?.disable();
 
-    this.ngb.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(result => {
-      const keyObject = {name: this.name?.value, key: this.key?.value, value: this.value?.value};
+      this.name?.setValue(key.name);
+      this.key?.setValue(key.key);
+      this.value?.setValue(key.value);
+    } else {
+      this.isEdit = false;
+
+      this.keyForm.reset();
+      this.name?.enable();
+    }
+    this.displayModal = true;
+  } 
+  
+  submitChange() {
+    const keyObject = { name: this.name?.value, key: this.key?.value, value: this.value?.value };
+    if (this.isEdit) {
       const sub = this.keyService.updateKey(keyObject).subscribe(() => {
         this.searchKeys();
       });
       this.subscriptions.push(sub);
-      console.log(result);
-    }, reason => {
-      console.log(reason);
-    });     
-  }
-
-  addDialog(content: any) {
-    this.isEdit = false;
-    this.keyForm.reset();
-    this.name?.enable();
-
-    this.ngb.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then(result => {
-      const keyObject = {name: this.name?.value, key: this.key?.value, value: this.value?.value};
+    } else {
       const sub = this.keyService.addKey(keyObject).subscribe(() => {
         this.searchKeys();
       }, error => {
-        this.errorMessage = error.message;  
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
       });
       this.subscriptions.push(sub);
-      console.log(result);
-    }, reason => {
-      console.log(reason);
-    });    
-  }  
+    }
+    this.displayModal = false;
+  }
 }

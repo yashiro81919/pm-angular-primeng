@@ -22,16 +22,16 @@ export class HeaderComponent implements OnInit {
     this.items = [{
       label: 'Navigate',
       items: [{
-          label: 'Crypto',
-          icon: 'pi pi-dollar',
-          routerLink: '/crypto'
+        label: 'Crypto',
+        icon: 'pi pi-dollar',
+        routerLink: '/crypto'
       },
       {
-          label: 'Key',
-          icon: 'pi pi-key',
-          routerLink: '/key'
+        label: 'Key',
+        icon: 'pi pi-key',
+        routerLink: '/key'
       }]
-    }];    
+    }];
   }
 
 }

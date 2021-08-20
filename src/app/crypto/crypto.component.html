@@ -5,7 +5,8 @@
   (click)="openDialog(null)"></button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
-<p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true" scrollHeight="800px">
+<p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
+  scrollHeight="800px">
   <ng-template pTemplate="header">
     <tr>
       <th></th>
@@ -42,22 +43,25 @@
   <div class="card" [formGroup]="cryptoForm">
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="cmc_id" type="text" pInputText aria-describedby="cmc_id-help" formControlName="cmc_id">
-        <label for="cmc_id">CMC ID</label>
+        <input id="cmc_id" type="text" pInputText aria-describedby="cmc_id-help" formControlName="cmc_id"
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmc_id')}">
+        <label for="cmc_id">CMC ID*</label>
       </span>
       <small *ngIf="isInvalid('cmc_id')" id="cmc_id-help" class="p-error">CMC ID is required.</small>
     </div>
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="name" type="text" pInputText aria-describedby="name-help" formControlName="name">
-        <label for="name">Name</label>
+        <input id="name" type="text" pInputText aria-describedby="name-help" formControlName="name"
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('name')}">
+        <label for="name">Name*</label>
       </span>
       <small *ngIf="isInvalid('name')" id="name-help" class="p-error">Name is required.</small>
     </div>
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="quantity" type="text" pInputText aria-describedby="quantity-help" formControlName="quantity">
-        <label for="quantity">Quantity</label>
+        <input id="quantity" type="text" pInputText aria-describedby="quantity-help" formControlName="quantity"
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('quantity')}">
+        <label for="quantity">Quantity*</label>
       </span>
       <small *ngIf="isInvalid('quantity')" id="quantity-help" class="p-error">Quantity is required.</small>
     </div>
@@ -70,7 +74,7 @@
   </div>
   <ng-template pTemplate="footer">
     <button pButton pRipple type="button" label="Yes" class="p-button-outlined p-button-success"
-      (click)="submitChange()" [disabled]="cryptoForm.invalid"></button>
+      (click)="submitChange()"></button>
     <button pButton pRipple type="button" label="No" class="p-button-outlined p-button-danger"
       (click)="displayModal = false"></button>
   </ng-template>

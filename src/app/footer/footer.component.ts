@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  description : string = '';
+  description: string = '';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.description = '© 2021 by Tim Shi for a better life';

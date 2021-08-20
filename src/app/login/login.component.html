@@ -1,20 +1,21 @@
-<p-dialog header="Input Key" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
-    [draggable]="false" [resizable]="false">
-    <div class="card" [formGroup]="keyForm">
-      <div class="field mt-4">
-        <span class="p-float-label">
-          <input id="key1" type="password" pInputText formControlName="key1" (keyup.enter)="confirmLogin()" autofocus> 
-          <label for="key1">Key1</label>
-        </span>          
-      </div>
-      <div class="field mt-4">
-        <span class="p-float-label">
-          <input id="key2" type="password" pInputText formControlName="key2" (keyup.enter)="confirmLogin()">  
-          <label for="key2">Key2</label>
-        </span>         
-      </div>
-    </div>  
-    <ng-template pTemplate="footer">
-      <button pButton pRipple type="button" label="OK" class="p-button-outlined p-button-success" (click)="confirmLogin()"></button>
-    </ng-template>
+<p-dialog header="Input Key" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+  [resizable]="false">
+  <div class="card" [formGroup]="keyForm">
+    <div class="field mt-4">
+      <span class="p-float-label">
+        <input id="key1" type="password" pInputText formControlName="key1" (keyup.enter)="confirmLogin()" autofocus>
+        <label for="key1">Key1</label>
+      </span>
+    </div>
+    <div class="field mt-4">
+      <span class="p-float-label">
+        <input id="key2" type="password" pInputText formControlName="key2" (keyup.enter)="confirmLogin()">
+        <label for="key2">Key2</label>
+      </span>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple type="button" label="OK" class="p-button-outlined p-button-success"
+      (click)="confirmLogin()"></button>
+  </ng-template>
 </p-dialog>

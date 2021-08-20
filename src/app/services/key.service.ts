@@ -42,14 +42,14 @@ export class KeyService {
   }
 
   addKey(key: any) {
-    key.key = this.encrypt(key.key); 
-    key.value = this.encrypt(key.value); 
+    key.key = this.encrypt(key.key);
+    key.value = this.encrypt(key.value);
     return this.http.post(this.url, key);
   }
 
   updateKey(key: any) {
-    key.key = this.encrypt(key.key); 
-    key.value = this.encrypt(key.value);     
-    return this.http.put(this.url, key);   
+    key.key = this.encrypt(key.key);
+    key.value = this.encrypt(key.value);
+    return this.http.put(this.url, key);
   }
 }

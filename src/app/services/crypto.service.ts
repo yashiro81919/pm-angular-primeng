@@ -24,7 +24,7 @@ export class CryptoService {
     return this.http.post(this.url, crypto);
   }
 
-  updateCrypto(crypto: any) {    
-    return this.http.put(this.url, crypto);   
-  }  
+  updateCrypto(crypto: any) {
+    return this.http.put(this.url, crypto);
+  }
 }

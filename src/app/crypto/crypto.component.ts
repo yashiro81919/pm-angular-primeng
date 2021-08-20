@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { CryptoService } from './crypto.service';
+import { CryptoService } from '../services/crypto.service';
 
 @Component({
   selector: 'app-crypto',
@@ -78,6 +78,8 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
       accept: () => {
         const sub = this.cryptoService.deleteCrypto(cmc_id).subscribe(() => {
           this.listCryptos();
+        }, error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
         });
         this.subscriptions.push(sub);
       },
@@ -107,10 +109,16 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   submitChange() {
+    this.cryptoForm.markAllAsTouched();
+    if (!this.cryptoForm.valid) {
+      return;
+    }
     const cryptoObject = { cmc_id: this.cmc_id?.value, name: this.name?.value, quantity: this.quantity?.value, remark: this.remark?.value };
     if (this.isEdit) {
       const sub = this.cryptoService.updateCrypto(cryptoObject).subscribe(() => {
         this.listCryptos();
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
       });
       this.subscriptions.push(sub);
     } else {

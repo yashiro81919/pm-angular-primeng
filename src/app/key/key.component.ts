@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { KeyService } from './key.service';
+import { KeyService } from '../services/key.service';
 
 @Component({
   selector: 'app-key',
@@ -69,11 +69,13 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
       accept: () => {
         const sub = this.keyService.deleteKey(name).subscribe(() => {
           this.searchKeys();
+        }, error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
         });
         this.subscriptions.push(sub);
       },
       reject: () => {
-        
+
       }
     });
   }
@@ -94,13 +96,19 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
       this.name?.enable();
     }
     this.displayModal = true;
-  } 
-  
+  }
+
   submitChange() {
+    this.keyForm.markAllAsTouched();
+    if (!this.keyForm.valid) {
+      return;
+    }
     const keyObject = { name: this.name?.value, key: this.key?.value, value: this.value?.value };
     if (this.isEdit) {
       const sub = this.keyService.updateKey(keyObject).subscribe(() => {
         this.searchKeys();
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
       });
       this.subscriptions.push(sub);
     } else {

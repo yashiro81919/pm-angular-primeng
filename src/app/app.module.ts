@@ -11,7 +11,7 @@ import { CryptoComponent } from './crypto/crypto.component';
 import { KeyComponent } from './key/key.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { AuthInterceptor } from './auth-interceptor';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';

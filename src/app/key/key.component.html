@@ -39,7 +39,7 @@
     <div class="field mt-4">
       <span class="p-float-label">
         <input id="name" type="text" pInputText aria-describedby="name-help" formControlName="name"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('name')}">
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('name')}" (keyup.enter)="submitChange()">
         <label for="name">Site Name*</label>
       </span>
       <small *ngIf="isInvalid('name')" id="name-help" class="p-error">Site Name is required.</small>
@@ -47,7 +47,7 @@
     <div class="field mt-4">
       <span class="p-float-label">
         <input id="key" type="text" pInputText aria-describedby="key-help" formControlName="key"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('key')}">
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('key')}" (keyup.enter)="submitChange()">
         <label for="key">Key*</label>
       </span>
       <small *ngIf="isInvalid('key')" id="key-help" class="p-error">Key is required.</small>
@@ -55,7 +55,7 @@
     <div class="field mt-4">
       <span class="p-float-label">
         <input id="value" type="text" pInputText aria-describedby="value-help" formControlName="value"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('value')}">
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('value')}" (keyup.enter)="submitChange()">
         <label for="value">Value*</label>
       </span>
       <small *ngIf="isInvalid('value')" id="value-help" class="p-error">Value is required.</small>

@@ -1,6 +1,6 @@
 <p-toast position="top-center"></p-toast>
-<button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success p-button-text"
-  (click)="openDialog(null)"></button>
+<button #addButton pButton pRipple type="button" icon="pi pi-plus"
+  class="p-button-rounded p-button-success p-button-text" (click)="openDialog(null)"></button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
 <p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
@@ -41,23 +41,28 @@
   <div class="card" [formGroup]="cryptoForm">
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="cmcId" type="text" pInputText aria-describedby="cmcId-help" formControlName="cmcId"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmcId')}">
-        <label for="cmcId">CMC ID*</label>
+        <p-autoComplete [suggestions]="filteredCmcs" (completeMethod)="filterCmc($event)" field="name" [dropdown]="false"
+          formControlName="cmc" [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmc')}">
+          <ng-template let-cmc pTemplate="cmcObjs">
+            <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{cmc.cmcId}}.png" width="16" height="16" />
+            {{cmc.name}}
+          </ng-template>
+        </p-autoComplete>
+        <label for="cmc">CMC Object*</label>
       </span>
-      <small *ngIf="isInvalid('cmcId')" id="cmcId-help" class="p-error">CMC ID is required.</small>
+      <small *ngIf="isInvalid('cmc')" id="cmc-help" class="p-error">CMC Object is required or invalid.</small>
     </div>
     <div class="field mt-4">
       <span class="p-float-label">
         <input id="quantity" type="text" pInputText aria-describedby="quantity-help" formControlName="quantity"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('quantity')}">
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('quantity')}" (keyup.enter)="submitChange()">
         <label for="quantity">Quantity*</label>
       </span>
       <small *ngIf="isInvalid('quantity')" id="quantity-help" class="p-error">Quantity is required.</small>
     </div>
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="remark" type="text" pInputText formControlName="remark">
+        <input id="remark" type="text" pInputText formControlName="remark" (keyup.enter)="submitChange()">
         <label for="remark">Remark</label>
       </span>
     </div>

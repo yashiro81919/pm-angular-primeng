@@ -20,6 +20,7 @@ import { TableModule } from 'primeng/table';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
@@ -45,7 +46,8 @@ import { ConfirmationService } from 'primeng/api';
     TableModule,
     ConfirmPopupModule,
     InputTextModule,
-    MenuModule
+    MenuModule,
+    AutoCompleteModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

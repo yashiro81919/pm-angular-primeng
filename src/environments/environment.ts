@@ -5,8 +5,10 @@
 export const environment = {
   production: false,
   keyName: 'X-API-KEY',
-  cryptoEndpoint: `http://localhost:60001/api/cryptos`,
-  keyEndpoint: `http://localhost:60001/api/keys`,
+  baseURL: 'http://localhost:60001/api',
+  cryptoEndpoint: '/cryptos',
+  keyEndpoint: '/keys',
+  cmcEndpoint: '/cmcs'
 };
 
 /*

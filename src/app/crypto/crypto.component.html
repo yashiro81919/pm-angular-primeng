@@ -1,7 +1,5 @@
 <p-toast position="top-center"></p-toast>
-<button #searchButton pButton pRipple type="button" label="Search" class="p-button-outlined p-button-secondary"
-  (click)="listCryptos()"></button>
-<button pButton pRipple type="button" label="Add" class="p-button-outlined p-button-success ml-2"
+<button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success p-button-text"
   (click)="openDialog(null)"></button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
@@ -24,13 +22,13 @@
         <button pButton pRipple type="button" icon="pi pi-pencil"
           class="p-button-rounded p-button-primary p-button-text" (click)="openDialog(crypto)"></button>
         <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
-          (click)="confirmDialog($event, crypto.cmc_id)"></button>
+          (click)="confirmDialog($event, crypto.cmcId)"></button>
       </td>
-      <td>{{ crypto.cmc_id }}</td>
+      <td>{{ crypto.cmcId }}</td>
       <td>{{ crypto.name }}</td>
       <td>{{ crypto.quantity }}</td>
       <td>{{ crypto.price | currency: 'USD' }}</td>
-      <td>{{ crypto.total | currency: 'USD' }}</td>
+      <td>{{ crypto.quantity * crypto.price | currency: 'USD' }}</td>
       <td>{{ crypto.remark }}</td>
     </tr>
   </ng-template>
@@ -43,19 +41,11 @@
   <div class="card" [formGroup]="cryptoForm">
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="cmc_id" type="text" pInputText aria-describedby="cmc_id-help" formControlName="cmc_id"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmc_id')}">
-        <label for="cmc_id">CMC ID*</label>
+        <input id="cmcId" type="text" pInputText aria-describedby="cmcId-help" formControlName="cmcId"
+          [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmcId')}">
+        <label for="cmcId">CMC ID*</label>
       </span>
-      <small *ngIf="isInvalid('cmc_id')" id="cmc_id-help" class="p-error">CMC ID is required.</small>
-    </div>
-    <div class="field mt-4">
-      <span class="p-float-label">
-        <input id="name" type="text" pInputText aria-describedby="name-help" formControlName="name"
-          [ngClass]="{'ng-invalid ng-dirty': isInvalid('name')}">
-        <label for="name">Name*</label>
-      </span>
-      <small *ngIf="isInvalid('name')" id="name-help" class="p-error">Name is required.</small>
+      <small *ngIf="isInvalid('cmcId')" id="cmcId-help" class="p-error">CMC ID is required.</small>
     </div>
     <div class="field mt-4">
       <span class="p-float-label">

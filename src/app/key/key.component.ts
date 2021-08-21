@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { Key } from '../models/key';
 import { KeyService } from '../services/key.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('filterInput') filterElement!: ElementRef;
 
-  keys: any[] = [];
+  keys: Key[] = [];
   filter = new FormControl();
   keyForm!: FormGroup;
   subscriptions: Array<Subscription> = [];
@@ -80,7 +81,7 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  openDialog(key: any) {
+  openDialog(key: Key | null) {
     if (key) {
       this.isEdit = true;
 
@@ -103,7 +104,7 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.keyForm.valid) {
       return;
     }
-    const keyObject = { name: this.name?.value, key: this.key?.value, value: this.value?.value };
+    const keyObject: Key = { name: this.name?.value, key: this.key?.value, value: this.value?.value };
     if (this.isEdit) {
       const sub = this.keyService.updateKey(keyObject).subscribe(() => {
         this.searchKeys();

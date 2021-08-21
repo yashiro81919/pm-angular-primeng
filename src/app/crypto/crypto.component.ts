@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { Cmc } from '../models/cmc';
+import { Crypto } from '../models/crypto';
 import { CryptoService } from '../services/crypto.service';
 
 @Component({
@@ -14,7 +16,8 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchButton') searchElement!: ElementRef;
 
-  cryptos: any[] = [];
+  cryptos: Crypto[] = [];
+  cmcObjs: Cmc[] = [];
   total: number = 0;
   cryptoForm!: FormGroup;
   subscriptions: Array<Subscription> = [];
@@ -26,11 +29,21 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.cryptoForm = new FormGroup({
-      cmc_id: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
+      cmcId: new FormControl('', Validators.required),
       quantity: new FormControl('', Validators.required),
       remark: new FormControl(''),
     });
+
+    this.showSpinner = true;
+
+    const sub = this.cryptoService.listCmcObjects().subscribe(data => {
+      this.cmcObjs = data;
+      //search cryptos
+      this.listCryptos();
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
+    });
+    this.subscriptions.push(sub);
   }
 
   ngOnDestroy(): void {
@@ -39,10 +52,9 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.searchElement.nativeElement.focus();
-  }  
+  }
 
-  get cmc_id() { return this.cryptoForm.get('cmc_id'); }
-  get name() { return this.cryptoForm.get('name'); }
+  get cmcId() { return this.cryptoForm.get('cmcId'); }
   get quantity() { return this.cryptoForm.get('quantity'); }
   get remark() { return this.cryptoForm.get('remark'); }
 
@@ -52,14 +64,20 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   listCryptos() {
-    this.showSpinner = true;
     const sub = this.cryptoService.listCryptos().subscribe(data => {
       this.cryptos = data;
       this.total = 0;
 
+      //merge cryto with cmc
+      this.cryptos.forEach(crypto => {
+        const cmc = this.cmcObjs.find(cmc => cmc.cmcId === crypto.cmcId);
+        crypto.name = cmc?.name ? cmc.name : '';
+        crypto.price = cmc?.price ? cmc.price : 0;
+      });
+
       //calculate total
-      data.forEach(element => {
-        this.total += element.total;
+      this.cryptos.forEach(element => {
+        this.total += element.quantity * element.price;
       });
 
       this.showSpinner = false;
@@ -70,13 +88,13 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.push(sub);
   }
 
-  confirmDialog(event: Event, cmc_id: number) {
+  confirmDialog(event: Event, cmcId: number) {
     this.confirmationService.confirm({
       target: event.target === null ? undefined : event.target,
       message: 'Are you sure to delete?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        const sub = this.cryptoService.deleteCrypto(cmc_id).subscribe(() => {
+        const sub = this.cryptoService.deleteCrypto(cmcId).subscribe(() => {
           this.listCryptos();
         }, error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
@@ -89,21 +107,20 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  openDialog(crypto: any) {
+  openDialog(crypto: Crypto | null) {
     if (crypto) {
       this.isEdit = true;
 
-      this.cmc_id?.disable();
+      this.cmcId?.disable();
 
-      this.cmc_id?.setValue(crypto.cmc_id);
-      this.name?.setValue(crypto.name);
+      this.cmcId?.setValue(crypto.cmcId);
       this.quantity?.setValue(crypto.quantity);
       this.remark?.setValue(crypto.remark);
     } else {
       this.isEdit = false;
 
       this.cryptoForm.reset();
-      this.cmc_id?.enable();
+      this.cmcId?.enable();
     }
     this.displayModal = true;
   }
@@ -113,7 +130,7 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!this.cryptoForm.valid) {
       return;
     }
-    const cryptoObject = { cmc_id: this.cmc_id?.value, name: this.name?.value, quantity: this.quantity?.value, remark: this.remark?.value };
+    const cryptoObject: Crypto = { cmcId: this.cmcId?.value, name: '', price: 0, quantity: this.quantity?.value, remark: this.remark?.value };
     if (this.isEdit) {
       const sub = this.cryptoService.updateCrypto(cryptoObject).subscribe(() => {
         this.listCryptos();

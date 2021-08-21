@@ -34,7 +34,7 @@
 <p-confirmPopup></p-confirmPopup>
 
 <p-dialog [header]="isEdit ? 'Update Key' : 'Add Key'" [(visible)]="displayModal" [modal]="true"
-  [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
   <div class="card" [formGroup]="keyForm">
     <div class="field mt-4">
       <span class="p-float-label">

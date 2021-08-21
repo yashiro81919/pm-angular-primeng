@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.cryptoForm = new FormGroup({
-      cmc: new FormControl({}, Validators.required),
+      cmc: new FormControl({}, [Validators.required, this.cmcValidator()]),
       quantity: new FormControl('', Validators.required),
       remark: new FormControl(''),
     });
@@ -61,7 +61,18 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isInvalid(name: string) {
     const control = this.cryptoForm.get(name);
-    return control?.invalid && (control?.dirty || control?.touched) && control?.errors?.required;
+    let status = control?.invalid && (control?.dirty || control?.touched) && control?.errors?.required;
+    if (name === 'cmc') {
+      status = status || control?.errors?.cmc;
+    }
+    return status;
+  }
+
+  cmcValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const type = typeof control.value;
+      return type !== 'object' ? { cmc: { value: control.value } } : null;
+    };
   }
 
   filterCmc(event: any) {
@@ -123,7 +134,7 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.cmc?.disable();
 
-      this.cmc?.setValue({cmcId: crypto.cmcId, name: crypto.name, price: crypto.price});
+      this.cmc?.setValue({ cmcId: crypto.cmcId, name: crypto.name, price: crypto.price });
       this.quantity?.setValue(crypto.quantity);
       this.remark?.setValue(crypto.remark);
     } else {

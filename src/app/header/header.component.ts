@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import packageInfo from '../../../package.json';
 import { MenuItem } from 'primeng/api';
+import packageInfo from '../../../package.json';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = packageInfo.name;
-    this.version = packageInfo.version;
+    this.version = 'Version: ' + (environment.production ? 'prd ' : 'dev ') + packageInfo.version;
 
     this.items = [{
       label: 'Navigate',

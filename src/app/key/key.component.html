@@ -1,7 +1,6 @@
 <p-toast position="top-center"></p-toast>
 <div class="p-component">
-  Name search: <input #filterInput type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()"
-    (blur)="searchKeys()" />
+  Name search: <input #filterInput type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
   <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success p-button-text ml-2"
     (click)="openDialog(null)"></button>
 </div>

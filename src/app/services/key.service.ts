@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { AES, enc } from 'crypto-js';
 
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
@@ -13,22 +12,13 @@ import { Key } from '../models/key';
 export class KeyService {
 
   private url = environment.baseURL + environment.keyEndpoint;
-  private secretKey = 'pm-sty';
 
   constructor(private http: HttpClient) { }
-
-  encrypt(value: string): string {
-    return AES.encrypt(value, this.secretKey).toString();
-  }
-
-  decrypt(value: string): string {
-    return AES.decrypt(value, this.secretKey).toString(enc.Utf8);
-  }
 
   searchKeys(value: string): Observable<Key[]> {
     return this.http.get<any[]>(`${this.url}?name=${value}`).pipe(map((data) => {
       return data.map<Key>(row => {
-        return { name: row.name, key: this.decrypt(row.key), value: this.decrypt(row.value) };
+        return { name: row.name, key: row.key, value: row.value };
       })
     }));
   }
@@ -38,12 +28,12 @@ export class KeyService {
   }
 
   addKey(key: Key): Observable<string> {
-    const body = {name: key.name, key: this.encrypt(key.key), value: this.encrypt(key.value)}
+    const body = {name: key.name, key: key.key, value: key.value}
     return this.http.post<string>(this.url, body);
   }
 
   updateKey(key: Key): Observable<string> {
-    const body = {name: key.name, key: this.encrypt(key.key), value: this.encrypt(key.value)}
+    const body = {name: key.name, key: key.key, value: key.value}
     return this.http.put<string>(this.url, body);
   }
 }

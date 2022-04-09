@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   confirmLogin(): void {
-    const apiKey = this.keyService.encrypt(this.key1?.value + this.key2?.value);
+    const apiKey = this.key1?.value + this.key2?.value;
     localStorage.setItem('key', apiKey);
 
     this.displayModal = false;

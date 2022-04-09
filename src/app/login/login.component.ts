@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { KeyService } from '../services/key.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,7 @@ export class LoginComponent implements OnInit {
   get key1() { return this.keyForm.get('key1'); }
   get key2() { return this.keyForm.get('key2'); }
 
-  constructor(private keyService: KeyService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.keyForm = new FormGroup({

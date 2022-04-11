@@ -4,5 +4,6 @@ export const environment = {
   baseURL: 'https://shitianyu.xyz/api',
   cryptoEndpoint: '/cryptos',
   keyEndpoint: '/keys',
-  cmcEndpoint: '/cmcs'
+  cmcEndpoint: '/cmcs',
+  loginEndpoint: '/login'
 };

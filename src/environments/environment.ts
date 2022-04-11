@@ -8,7 +8,8 @@ export const environment = {
   baseURL: 'http://localhost:60001/api',
   cryptoEndpoint: '/cryptos',
   keyEndpoint: '/keys',
-  cmcEndpoint: '/cmcs'
+  cmcEndpoint: '/cmcs',
+  loginEndpoint: '/login'
 };
 
 /*

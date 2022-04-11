@@ -1,6 +1,6 @@
 {
   "name": "pm-angular",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "pm front-end built with Angular and PrimeNG",
   "scripts": {
     "ng": "ng",

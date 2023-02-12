@@ -1,4 +1,4 @@
-<button #addButton pButton pRipple type="button" icon="pi pi-plus"
+<button #addButton pButton pRipple type="button" icon="pi pi-plus" title="add cryptocurrency"
   class="p-button-rounded p-button-success p-button-text" (click)="openDialog(null)"></button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
@@ -18,9 +18,9 @@
   <ng-template pTemplate="body" let-crypto>
     <tr>
       <td>
-        <button pButton pRipple type="button" icon="pi pi-pencil"
+        <button pButton pRipple type="button" icon="pi pi-pencil" title="update cryptocurrency"
           class="p-button-rounded p-button-primary p-button-text" (click)="openDialog(crypto)"></button>
-        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
+        <button pButton pRipple type="button" icon="pi pi-trash" title="delete cryptocurrency" class="p-button-rounded p-button-danger p-button-text"
           (click)="confirmDialog($event, crypto.cmcId)"></button>
       </td>
       <td>{{ crypto.cmcId }}</td>
@@ -44,7 +44,7 @@
           [dropdown]="false" formControlName="cmc" [ngClass]="{'ng-invalid ng-dirty': isInvalid('cmc')}"
           (keyup.enter)="submitChange()" [autofocus]="true">
           <ng-template let-cmc pTemplate="cmcObjs">
-            <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{cmc.cmcId}}.png" width="16" height="16" />
+            <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/{{cmc.cmcId}}.png" alt="{{cmc.cmcId}}" width="16" height="16" />
             {{cmc.name}}
           </ng-template>
         </p-autoComplete>
@@ -71,9 +71,9 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple type="button" label="Yes" class="p-button-outlined p-button-success"
+    <button pButton pRipple type="button" label="Yes" title="submit" class="p-button-outlined p-button-success"
       (click)="submitChange()"></button>
-    <button pButton pRipple type="button" label="No" class="p-button-outlined p-button-danger"
+    <button pButton pRipple type="button" label="No" title="cancel" class="p-button-outlined p-button-danger"
       (click)="displayModal = false"></button>
   </ng-template>
 </p-dialog>

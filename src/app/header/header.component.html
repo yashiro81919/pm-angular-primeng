@@ -2,10 +2,10 @@
   <div class="col">
     <div class="grid">
       <div class="col-12">
-        <img src="./assets/img/logo-nav@2x.png" width="150" height="40" />
+        <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon"/>
       </div>
       <div class="col-12">
-        <button pButton pRipple type="button" icon="pi pi-bars" label="Menu"
+        <button pButton pRipple type="button" icon="pi pi-bars" label="Menu" title="show menu"
           class="p-button-raised p-button-warning p-button-text" (click)="menu.toggle($event)"></button>
         <p-menu #menu [popup]="true" [model]="items"></p-menu>
       </div>

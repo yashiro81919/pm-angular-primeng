@@ -1,6 +1,6 @@
 <div class="p-component">
-  Name search: <input #filterInput type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
-  <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success p-button-text ml-2"
+  Name search: <input #filterInput aria-label="search key" type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
+  <button pButton pRipple type="button" icon="pi pi-plus" title="add key" class="p-button-rounded p-button-success p-button-text ml-2"
     (click)="openDialog(null)"></button>
 </div>
 
@@ -17,9 +17,9 @@
   <ng-template pTemplate="body" let-key>
     <tr>
       <td>
-        <button pButton pRipple type="button" icon="pi pi-pencil"
+        <button pButton pRipple type="button" icon="pi pi-pencil" title="update key"
           class="p-button-rounded p-button-primary p-button-text" (click)="openDialog(key)"></button>
-        <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text"
+        <button pButton pRipple type="button" icon="pi pi-trash" title="delete key" class="p-button-rounded p-button-danger p-button-text"
           (click)="confirmDialog($event, key.name)"></button>
       </td>
       <td>{{ key.name }}</td>
@@ -60,9 +60,9 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple type="button" label="Yes" class="p-button-outlined p-button-success"
+    <button pButton pRipple type="button" label="Yes" title="submit" class="p-button-outlined p-button-success"
       (click)="submitChange()"></button>
-    <button pButton pRipple type="button" label="No" class="p-button-outlined p-button-danger"
+    <button pButton pRipple type="button" label="No" title="cancel" class="p-button-outlined p-button-danger"
       (click)="displayModal = false"></button>
   </ng-template>
 </p-dialog>

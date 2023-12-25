@@ -13,6 +13,7 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit, OnDestroy {
 
   keyForm!: FormGroup;
+  displayModal = false;
   subscriptions: Array<Subscription> = [];
 
   get name() { return this.keyForm.get('name'); }
@@ -25,6 +26,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       name: new FormControl(''),
       password: new FormControl(''),
     });
+
+    this.displayModal = true;
   }
 
   ngOnDestroy(): void {
@@ -39,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Wrong user name/password.' });
         } else {
           localStorage.setItem('token', data);
+          this.displayModal = false;
         }
       }, error: e => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });

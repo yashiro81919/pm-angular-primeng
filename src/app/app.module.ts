@@ -11,11 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './services/auth-interceptor';
 
+import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MenuModule } from 'primeng/menu';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    DialogModule,
     ButtonModule,
     ToastModule,
     InputTextModule,
@@ -39,7 +41,7 @@ import { MenuModule } from 'primeng/menu';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  }, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'crypto', loadChildren: () => import('./crypto/crypto.module').then(m => m.CryptoModule)},
   { path: 'key', loadChildren: () => import('./key/key.module').then(m => m.KeyModule)},
+  { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

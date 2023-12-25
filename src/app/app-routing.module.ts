@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CryptoComponent } from './crypto/crypto.component';
-import { KeyComponent } from './key/key.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: 'crypto', component: CryptoComponent},
-  { path: 'key', component: KeyComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'crypto', loadChildren: () => import('./crypto/crypto.module').then(m => m.CryptoModule)},
+  { path: 'key', loadChildren: () => import('./key/key.module').then(m => m.KeyModule)},
 ];
 
 @NgModule({

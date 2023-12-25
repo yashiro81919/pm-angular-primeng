@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const authReq = req.clone({
       headers: req.headers.set('Content-Type', 'application/json')
-        .set(environment.keyName, authToken !== null ? authToken : '')
+        .set(environment.keyName, authToken ? 'Bearer ' + authToken : '')
     });
 
     return next.handle(authReq);

@@ -52,27 +52,30 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
 
   searchKeys() {
     this.showSpinner = true;
-    const sub = this.keyService.searchKeys(this.filter.value).subscribe(data => {
+    const sub = this.keyService.searchKeys(this.filter.value).subscribe({next: data => {
       this.keys = data;
       this.showSpinner = false;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
+    }, error: e => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
       this.showSpinner = false;
-    });
+    }});
     this.subscriptions.push(sub);
   }
 
   confirmDialog(event: Event, name: string) {
     this.confirmationService.confirm({
-      target: event.target === null ? undefined : event.target,
+      target: event.target as EventTarget,
       message: 'Are you sure to delete?',
+      header: 'Delete Confirmation',
       icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass:"p-button-danger p-button-outlined p-button-rounded",
+      rejectButtonStyleClass:"p-button-text p-button-outlined p-button-rounded",
       accept: () => {
-        const sub = this.keyService.deleteKey(name).subscribe(() => {
+        const sub = this.keyService.deleteKey(name).subscribe({next: () => {
           this.searchKeys();
-        }, error => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-        });
+        }, error: e => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+        }});
         this.subscriptions.push(sub);
       },
       reject: () => {
@@ -106,18 +109,18 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     const keyObject: Key = { name: this.name?.value, key: this.key?.value, value: this.value?.value };
     if (this.isEdit) {
-      const sub = this.keyService.updateKey(keyObject).subscribe(() => {
+      const sub = this.keyService.updateKey(keyObject).subscribe({next: () => {
         this.searchKeys();
-      }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-      });
+      }, error: e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+      }});
       this.subscriptions.push(sub);
     } else {
-      const sub = this.keyService.addKey(keyObject).subscribe(() => {
+      const sub = this.keyService.addKey(keyObject).subscribe({next: () => {
         this.searchKeys();
-      }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-      });
+      }, error: e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+      }});
       this.subscriptions.push(sub);
     }
     this.displayModal = false;

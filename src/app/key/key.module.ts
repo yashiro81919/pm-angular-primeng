@@ -7,7 +7,7 @@ import { KeyRoutingModule } from './key-routing.module';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService } from 'primeng/api';
 
@@ -23,7 +23,7 @@ import { ConfirmationService } from 'primeng/api';
     DialogModule,
     ButtonModule,
     InputTextModule,
-    ConfirmPopupModule,
+    ConfirmDialogModule,
     TableModule
   ],
   providers: [

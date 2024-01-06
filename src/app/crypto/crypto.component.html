@@ -1,5 +1,4 @@
-<button #addButton pButton pRipple type="button" icon="pi pi-plus" title="add cryptocurrency"
-  class="p-button-rounded p-button-success p-button-text" (click)="openDialog(null)"></button>
+<p-button #addButton class="ml-2" icon="pi pi-plus" title="add cryptocurrency" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
 <p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
@@ -18,10 +17,8 @@
   <ng-template pTemplate="body" let-crypto>
     <tr>
       <td>
-        <button pButton pRipple type="button" icon="pi pi-pencil" title="update cryptocurrency"
-          class="p-button-rounded p-button-primary p-button-text" (click)="openDialog(crypto)"></button>
-        <button pButton pRipple type="button" icon="pi pi-trash" title="delete cryptocurrency" class="p-button-rounded p-button-danger p-button-text"
-          (click)="confirmDialog($event, crypto.cmcId)"></button>
+        <p-button class="ml-2" icon="pi pi-pencil" title="update cryptocurrency" [rounded]="true" severity="info" [outlined]="true" (click)="openDialog(crypto)"></p-button>
+        <p-button class="ml-2" icon="pi pi-trash" title="delete cryptocurrency" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, crypto.cmcId)"></p-button>
       </td>
       <td>{{ crypto.cmcId }}</td>
       <td>{{ crypto.name }}</td>
@@ -33,7 +30,7 @@
   </ng-template>
 </p-table>
 
-<p-confirmPopup></p-confirmPopup>
+<p-confirmDialog></p-confirmDialog>
 
 <p-dialog [header]="isEdit ? 'Update Crypto' : 'Add Crypto'" [(visible)]="displayModal" [modal]="true"
   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
@@ -71,9 +68,7 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple type="button" label="Yes" title="submit" class="p-button-outlined p-button-success"
-      (click)="submitChange()"></button>
-    <button pButton pRipple type="button" label="No" title="cancel" class="p-button-outlined p-button-danger"
-      (click)="displayModal = false"></button>
+    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [outlined]="true" (click)="submitChange()"></p-button>
+    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [outlined]="true" (click)="displayModal = false"></p-button>
   </ng-template>
 </p-dialog>

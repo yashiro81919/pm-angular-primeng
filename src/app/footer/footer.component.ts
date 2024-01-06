@@ -12,7 +12,7 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.description = '© Tim Shi for a better life';
+    this.description = '© 2024 Tim Shi for a better life';
   }
 
 }

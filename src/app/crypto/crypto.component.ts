@@ -37,13 +37,13 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.showSpinner = true;
 
-    const sub = this.cryptoService.listCmcObjects().subscribe(data => {
+    const sub = this.cryptoService.listCmcObjects().subscribe({next: data => {
       this.cmcObjs = data;
       //search cryptos
       this.listCryptos();
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-    });
+    }, error: e => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+    }});
     this.subscriptions.push(sub);
   }
 
@@ -85,7 +85,7 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   listCryptos() {
-    const sub = this.cryptoService.listCryptos().subscribe(data => {
+    const sub = this.cryptoService.listCryptos().subscribe({next: data => {
       this.cryptos = data;
       this.total = 0;
 
@@ -102,24 +102,26 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
       this.showSpinner = false;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
+    }, error: e => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
       this.showSpinner = false;
-    });
+    }});
     this.subscriptions.push(sub);
   }
 
   confirmDialog(event: Event, cmcId: number) {
     this.confirmationService.confirm({
-      target: event.target === null ? undefined : event.target,
+      target: event.target as EventTarget,
       message: 'Are you sure to delete?',
       icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass:"p-button-danger p-button-outlined p-button-rounded",
+      rejectButtonStyleClass:"p-button-text p-button-outlined p-button-rounded",
       accept: () => {
-        const sub = this.cryptoService.deleteCrypto(cmcId).subscribe(() => {
+        const sub = this.cryptoService.deleteCrypto(cmcId).subscribe({next: () => {
           this.listCryptos();
-        }, error => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-        });
+        }, error: e => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+        }});
         this.subscriptions.push(sub);
       },
       reject: () => {
@@ -153,18 +155,18 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     const cryptoObject: Crypto = { cmcId: this.cmc?.value.cmcId, name: '', price: 0, quantity: this.quantity?.value, remark: this.remark?.value };
     if (this.isEdit) {
-      const sub = this.cryptoService.updateCrypto(cryptoObject).subscribe(() => {
+      const sub = this.cryptoService.updateCrypto(cryptoObject).subscribe({next: () => {
         this.listCryptos();
-      }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-      });
+      }, error: e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+      }});
       this.subscriptions.push(sub);
     } else {
-      const sub = this.cryptoService.addCrypto(cryptoObject).subscribe(() => {
+      const sub = this.cryptoService.addCrypto(cryptoObject).subscribe({next: () => {
         this.listCryptos();
-      }, error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
-      });
+      }, error: e => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: e.message });
+      }});
       this.subscriptions.push(sub);
     }
     this.displayModal = false;

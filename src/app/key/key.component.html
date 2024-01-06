@@ -1,7 +1,7 @@
-<div class="p-component">
-  Name search: <input #filterInput aria-label="search key" type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
-  <button pButton pRipple type="button" icon="pi pi-plus" title="add key" class="p-button-rounded p-button-success p-button-text ml-2"
-    (click)="openDialog(null)"></button>
+<div class="mb-4">
+  <input #filterInput aria-label="search key" placeholder="Search Name" type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
+  <p-button class="ml-2" icon="pi pi-search" title="search key" [rounded]="true" [outlined]="true" (click)="searchKeys()"></p-button>
+  <p-button class="ml-2" icon="pi pi-plus" title="add key" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
 </div>
 
 <p-table [value]="keys" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
@@ -17,10 +17,8 @@
   <ng-template pTemplate="body" let-key>
     <tr>
       <td>
-        <button pButton pRipple type="button" icon="pi pi-pencil" title="update key"
-          class="p-button-rounded p-button-primary p-button-text" (click)="openDialog(key)"></button>
-        <button pButton pRipple type="button" icon="pi pi-trash" title="delete key" class="p-button-rounded p-button-danger p-button-text"
-          (click)="confirmDialog($event, key.name)"></button>
+        <p-button class="ml-2" icon="pi pi-pencil" title="update key" [rounded]="true" severity="info" [outlined]="true" (click)="openDialog(key)"></p-button>
+        <p-button class="ml-2" icon="pi pi-trash" title="delete key" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, key.name)"></p-button>
       </td>
       <td>{{ key.name }}</td>
       <td>{{ key.key }}</td>
@@ -29,7 +27,7 @@
   </ng-template>
 </p-table>
 
-<p-confirmPopup></p-confirmPopup>
+<p-confirmDialog></p-confirmDialog>
 
 <p-dialog [header]="isEdit ? 'Update Key' : 'Add Key'" [(visible)]="displayModal" [modal]="true"
   [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
@@ -60,9 +58,7 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple type="button" label="Yes" title="submit" class="p-button-outlined p-button-success"
-      (click)="submitChange()"></button>
-    <button pButton pRipple type="button" label="No" title="cancel" class="p-button-outlined p-button-danger"
-      (click)="displayModal = false"></button>
+    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [outlined]="true" (click)="submitChange()"></p-button>
+    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [outlined]="true" (click)="displayModal = false"></p-button>
   </ng-template>
 </p-dialog>

@@ -3,7 +3,7 @@
   <div class="card" [formGroup]="keyForm">
     <div class="field mt-4">
       <span class="p-float-label">
-        <input id="name" type="text" pInputText formControlName="name" (keyup.enter)="confirmLogin()" autofocus>
+        <input id="name" type="text" pInputText formControlName="name" (keyup.enter)="confirmLogin()" [autofocus]="true">
         <label for="name">Name</label>
       </span>
     </div>
@@ -15,7 +15,6 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton pRipple type="button" label="OK" class="p-button-outlined p-button-success" title="login"
-      (click)="confirmLogin()"></button>
+    <p-button icon="pi pi-arrow-right" title="login" label="Login" [rounded]="true" [outlined]="true" (click)="confirmLogin()"></p-button>
   </ng-template>
 </p-dialog>

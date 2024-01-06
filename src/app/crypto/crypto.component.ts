@@ -112,7 +112,7 @@ export class CryptoComponent implements OnInit, OnDestroy, AfterViewInit {
   confirmDialog(event: Event, cmcId: number) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure to delete?',
+      message: `Are you sure to delete "${cmcId}"?`,
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass:"p-button-danger p-button-outlined p-button-rounded",
       rejectButtonStyleClass:"p-button-text p-button-outlined p-button-rounded",

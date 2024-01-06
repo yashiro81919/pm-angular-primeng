@@ -65,7 +65,7 @@ export class KeyComponent implements OnInit, OnDestroy, AfterViewInit {
   confirmDialog(event: Event, name: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure to delete?',
+      message: `Are you sure to delete "${name}"?`,
       header: 'Delete Confirmation',
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass:"p-button-danger p-button-outlined p-button-rounded",

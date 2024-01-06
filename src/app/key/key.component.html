@@ -18,7 +18,9 @@
     <tr>
       <td>
         <p-button class="ml-2" icon="pi pi-pencil" title="update key" [rounded]="true" severity="info" [outlined]="true" (click)="openDialog(key)"></p-button>
-        <p-button class="ml-2" icon="pi pi-trash" title="delete key" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, key.name)"></p-button>
+        @if (key.name !== 'cmc-key') {
+          <p-button class="ml-2" icon="pi pi-trash" title="delete key" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, key.name)"></p-button>
+        }
       </td>
       <td>{{ key.name }}</td>
       <td>{{ key.key }}</td>

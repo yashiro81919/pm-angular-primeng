@@ -17,6 +17,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { MessageService } from 'primeng/api';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     ToastModule,
     InputTextModule,
-    MenuModule
+    MenuModule,
+    ToolbarModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -1,20 +1,19 @@
-<div class="grid bg-bluegray-700 text-white">
-  <div class="col">
-    <div class="grid">
-      <div class="col-12">
-        <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon"/>
-      </div>
-      <div class="col-12">
-        <button pButton pRipple type="button" icon="pi pi-bars" label="Menu" title="show menu"
-          class="p-button-raised p-button-warning p-button-text" (click)="menu.toggle($event)"></button>
-        <p-menu #menu [popup]="true" [model]="items"></p-menu>
-      </div>
+<p-toolbar styleClass="bg-gray-700 shadow-2"
+  [style]="{ 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
+  <ng-template pTemplate="start">
+    <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon" />
+    <button pButton pRipple type="button" icon="pi pi-bars" label="Menu" title="show menu"
+    class="p-button-raised p-button-warning p-button-text" (click)="menu.toggle($event)"></button>
+  <p-menu #menu [popup]="true" [model]="items"></p-menu>
+  </ng-template>
+  <ng-template pTemplate="center">
+    <div class="flex flex-wrap align-items-center gap-3 text-white">
+      <h1>{{name}}</h1>
     </div>
-  </div>
-  <div class="col">
-    <h1>{{name}}</h1>
-  </div>
-  <div class="col">
-    <p class="text-right">{{version}}</p>
-  </div>
-</div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <div class="flex align-items-center gap-2">
+      <span class="font-bold text-bluegray-50">{{version}}</span>
+    </div>
+  </ng-template>
+</p-toolbar>

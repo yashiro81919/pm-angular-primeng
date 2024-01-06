@@ -1,8 +1,7 @@
 <p-button #addButton class="ml-2" icon="pi pi-plus" title="add cryptocurrency" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
-<p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
-  scrollHeight="800px">
+<p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true" [paginator]="true" [rows]="5">
   <ng-template pTemplate="header">
     <tr>
       <th></th>

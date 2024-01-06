@@ -4,8 +4,7 @@
   <p-button class="ml-2" icon="pi pi-plus" title="add key" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
 </div>
 
-<p-table [value]="keys" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true"
-  scrollHeight="800px">
+<p-table [value]="keys" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true" [paginator]="true" [rows]="5">
   <ng-template pTemplate="header">
     <tr>
       <th></th>

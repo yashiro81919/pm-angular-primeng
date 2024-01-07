@@ -2,9 +2,7 @@
   [style]="{ 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
   <ng-template pTemplate="start">
     <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon" />
-    <button pButton pRipple type="button" icon="pi pi-bars" label="Menu" title="show menu"
-    class="p-button-raised p-button-warning p-button-text" (click)="menu.toggle($event)"></button>
-  <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    <p-button class="ml-2" icon="pi pi-bars" title="toggle menu" [rounded]="true" [outlined]="true" (click)="toggleMenu()"></p-button>
   </ng-template>
   <ng-template pTemplate="center">
     <div class="flex flex-wrap align-items-center gap-3 text-white">

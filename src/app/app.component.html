@@ -4,8 +4,13 @@
   <div class="col-12">
     <app-header></app-header>
   </div>
-  <div class="col-12 h-full p-component shadow-2">
-    <router-outlet></router-outlet>
+  <div [class]="menuClass">
+    <app-menu></app-menu>
+  </div>
+  <div [class]="outletClass">
+    <div class="shadow-2 p-4 h-full">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <div class="col-12">
     <app-footer></app-footer>

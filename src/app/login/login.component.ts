@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   get name() { return this.keyForm.get('name'); }
   get password() { return this.keyForm.get('password'); }
 
-  constructor(private loginService: LoginService, private messageService: MessageService,) { }
+  constructor(private loginService: LoginService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.keyForm = new FormGroup({

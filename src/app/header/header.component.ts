@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import packageInfo from '../../../package.json';
 import { environment } from '../../environments/environment';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-header',
@@ -12,27 +12,16 @@ export class HeaderComponent implements OnInit {
 
   name: string = '';
   version: string = '';
-  items: MenuItem[] = [];
 
-  constructor() { }
+  constructor(private readonly cs: CommonService) { }
 
   ngOnInit(): void {
     this.name = packageInfo.name;
     this.version = 'Version: ' + (environment.production ? 'prd ' : 'dev ') + packageInfo.version;
-
-    this.items = [{
-      label: 'Navigate',
-      items: [{
-        label: 'Crypto',
-        icon: 'pi pi-dollar',
-        routerLink: '/crypto'
-      },
-      {
-        label: 'Key',
-        icon: 'pi pi-key',
-        routerLink: '/key'
-      }]
-    }];
   }
 
+  toggleMenu(): void {
+    this.cs.setMenuBarStatus(true);
+  }
+    
 }

@@ -1,7 +1,7 @@
 <div class="mb-4">
   <input #filterInput aria-label="search key" placeholder="Search Name" type="text" pInputText [formControl]="filter" (keyup.enter)="searchKeys()" />
-  <p-button class="ml-2" icon="pi pi-search" title="search key" [rounded]="true" [outlined]="true" (click)="searchKeys()"></p-button>
-  <p-button class="ml-2" icon="pi pi-plus" title="add key" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
+  <p-button class="ml-2" icon="pi pi-search" title="search key" [rounded]="true" [text]="true" [raised]="true" (click)="searchKeys()"></p-button>
+  <p-button class="ml-2" icon="pi pi-plus" title="add key" [rounded]="true" severity="success" [text]="true" [raised]="true" (click)="openDialog(null)"></p-button>
 </div>
 
 <p-table [value]="keys" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true" [paginator]="true" [rows]="5">
@@ -16,9 +16,9 @@
   <ng-template pTemplate="body" let-key>
     <tr>
       <td>
-        <p-button class="ml-2" icon="pi pi-pencil" title="update key" [rounded]="true" severity="info" [outlined]="true" (click)="openDialog(key)"></p-button>
+        <p-button class="ml-2" icon="pi pi-pencil" title="update key" [rounded]="true" severity="info" [text]="true" [raised]="true" (click)="openDialog(key)"></p-button>
         @if (key.name !== 'cmc-key') {
-          <p-button class="ml-2" icon="pi pi-trash" title="delete key" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, key.name)"></p-button>
+          <p-button class="ml-2" icon="pi pi-trash" title="delete key" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="confirmDialog($event, key.name)"></p-button>
         }
       </td>
       <td>{{ key.name }}</td>
@@ -59,7 +59,7 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [outlined]="true" (click)="submitChange()"></p-button>
-    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [outlined]="true" (click)="displayModal = false"></p-button>
+    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [text]="true" [raised]="true" (click)="submitChange()"></p-button>
+    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="displayModal = false"></p-button>
   </ng-template>
 </p-dialog>

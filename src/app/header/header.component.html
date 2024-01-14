@@ -1,8 +1,16 @@
 <p-toolbar styleClass="bg-gray-700 shadow-2"
   [style]="{ 'background-image': 'linear-gradient(to right, var(--bluegray-500), var(--bluegray-800))' }">
   <ng-template pTemplate="start">
-    <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon" />
-    <p-button class="ml-2" icon="pi pi-bars" title="toggle menu" [rounded]="true" [outlined]="true" (click)="toggleMenu()"></p-button>
+    <div class="grid">
+      <div class="col-12">
+        <img src="./assets/img/logo-nav@2x.png" width="150" height="40" alt="angular icon" />
+      </div>
+      <div class="col-12">
+        <p-button class="ml-2" icon="pi pi-bars" title="show menu" [rounded]="true" [text]="true" [raised]="true" severity="warning"
+          (click)="menu.toggle($event)"></p-button>
+        <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      </div>
+    </div>
   </ng-template>
   <ng-template pTemplate="center">
     <div class="flex flex-wrap align-items-center gap-3 text-white">

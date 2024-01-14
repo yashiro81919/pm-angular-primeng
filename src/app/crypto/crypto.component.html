@@ -1,4 +1,4 @@
-<p-button #addButton class="ml-2" icon="pi pi-plus" title="add cryptocurrency" [rounded]="true" severity="success" [outlined]="true" (click)="openDialog(null)"></p-button>
+<p-button #addButton class="ml-2" icon="pi pi-plus" title="add cryptocurrency" [rounded]="true" severity="success" [text]="true" [raised]="true" (click)="openDialog(null)"></p-button>
 
 <p class="p-component">Total Price: {{ total | currency: 'USD' }}</p>
 <p-table [value]="cryptos" styleClass="p-datatable-striped" [loading]="showSpinner" [scrollable]="true" [paginator]="true" [rows]="5">
@@ -16,8 +16,8 @@
   <ng-template pTemplate="body" let-crypto>
     <tr>
       <td>
-        <p-button class="ml-2" icon="pi pi-pencil" title="update cryptocurrency" [rounded]="true" severity="info" [outlined]="true" (click)="openDialog(crypto)"></p-button>
-        <p-button class="ml-2" icon="pi pi-trash" title="delete cryptocurrency" [rounded]="true" severity="danger" [outlined]="true" (click)="confirmDialog($event, crypto.cmcId)"></p-button>
+        <p-button class="ml-2" icon="pi pi-pencil" title="update cryptocurrency" [rounded]="true" severity="info" [text]="true" [raised]="true" (click)="openDialog(crypto)"></p-button>
+        <p-button class="ml-2" icon="pi pi-trash" title="delete cryptocurrency" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="confirmDialog($event, crypto.cmcId)"></p-button>
       </td>
       <td>{{ crypto.cmcId }}</td>
       <td>{{ crypto.name }}</td>
@@ -67,7 +67,7 @@
     </div>
   </div>
   <ng-template pTemplate="footer">
-    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [outlined]="true" (click)="submitChange()"></p-button>
-    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [outlined]="true" (click)="displayModal = false"></p-button>
+    <p-button class="ml-2" icon="pi pi-check" title="Yes" label="Yes" [rounded]="true" severity="success" [text]="true" [raised]="true" (click)="submitChange()"></p-button>
+    <p-button class="ml-2" icon="pi pi-times" title="No" label="No" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="displayModal = false"></p-button>
   </ng-template>
 </p-dialog>
